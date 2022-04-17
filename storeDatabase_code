@@ -1,0 +1,71 @@
+use store;
+CREATE TABLE countries (
+code int primary key,
+name varchar(20) unique  ,
+continent_name varchar(20) not null );
+
+CREATE TABLE users (
+id int primary key,
+full_name varchar(20) unique ,
+email varchar(20),
+gender char (1),
+date_of_birth varchar(15),
+created_at datetime,
+country_code int ,
+FOREIGN KEY (country_code) REFERENCES countries(code) );
+
+CREATE TABLE orders (
+id int primary key,
+user_id int   ,
+statuss varchar(6) ,
+created_at datetime,
+    FOREIGN KEY (user_id) REFERENCES users(id));
+
+    CREATE TABLE products (
+id int primary key,
+name varchar(10) not null ,
+price int default 0  ,
+status_p varchar(10), 
+created_at datetime
+    );
+    create table order_products (
+    order_id int references orders(id),
+    product_id int references products(id),
+    quantity int ,
+    primary key (order_id, product_id));
+    
+
+
+ALTER TABLE users 
+ADD CONSTRAINT check_gender check(gender ='m' or gender='f'));
+
+ALTER TABLE orders 
+ADD CONSTRAINT check_status check(statuss ='start' or statuss='finsh');
+
+
+ALTER TABLE products 
+ADD CONSTRAINT check_pstatus check(statuss ='valid' or statuss='expired') );
+ALTER TABLE products
+modify  created_at datetime DEFAULT CURRENT_TIMESTAMP;
+
+INSERT INTO countries
+VALUES (966, 'saudia', 'Asia');
+
+INSERT INTO users
+VALUES (1,'Aisha Mater' , 'aisha@gmail.com','f','1997-09-01','2020-09-01',966);
+
+INSERT INTO orders
+VALUES (1,1 ,'start','2020-09-01');
+
+
+INSERT INTO products
+VALUES (2,'T-shirt' ,90,'expired','2019-09-01');
+INSERT INTO order_products
+VALUES (1,2 ,4);
+
+UPDATE countries
+SET name = 'Saduia Arabia'
+WHERE code = 966;
+
+DELETE FROM products WHERE id=1;
+ 
