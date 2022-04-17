@@ -44,7 +44,7 @@ ADD CONSTRAINT check_status check(statuss ='start' or statuss='finsh');
 
 
 ALTER TABLE products 
-ADD CONSTRAINT check_pstatus check(statuss ='valid' or statuss='expired') ;
+ADD CONSTRAINT check_pstatus check(status_p ='valid' or status_p='expired') ;
 ALTER TABLE products
 modify  created_at datetime DEFAULT CURRENT_TIMESTAMP;
 
